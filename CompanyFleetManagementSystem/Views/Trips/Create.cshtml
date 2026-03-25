@@ -1,0 +1,43 @@
+﻿@model CompanyFleetManagementSystem.Models.Trip
+
+<h2>Създаване на рейс</h2>
+
+<form asp-action="Create" method="post" style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+    
+    <div>
+        <label>Име на рейса</label><br />
+        <input asp-for="Name" style="width: 100%;" required />
+    </div>
+
+    <div>
+        <label>Описание</label><br />
+        <textarea asp-for="Description" style="width: 100%;"></textarea>
+    </div>
+
+    <div>
+        <label>Маршрут</label><br />
+        <input asp-for="Route" style="width: 100%;" required />
+    </div>
+
+    <div>
+        <label>Имейл на шофьора (напр. bob@yahoo.com)</label><br />
+        <input asp-for="DriverEmail" style="width: 100%; border: 2px solid #007bff;" required />
+        <small>Важно: Напишете имейла на шофьора, за да види той рейса.</small>
+    </div>
+
+    <div>
+        <label>Тръгване</label><br />
+        <input asp-for="DepartureTime" type="datetime-local" style="width: 100%;" required />
+    </div>
+
+    <div>
+        <label>Очаквано връщане</label><br />
+        <input asp-for="ExpectedReturnTime" type="datetime-local" style="width: 100%;" required />
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; cursor: pointer;">Създай рейс</button>
+        <a href="/Trips" style="margin-left: 10px;">Отказ</a>
+    </div>
+
+</form>

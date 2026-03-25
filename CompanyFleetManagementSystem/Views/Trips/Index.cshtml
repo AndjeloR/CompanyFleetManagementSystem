@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CompanyFleetManagementSystem.Models.Trip>
+
+<h2>Всички рейсове</h2>
+
+<div style="margin-bottom: 20px; padding: 15px; background: #f4f4f4; border-radius: 8px;">
+    <form method="get" asp-action="Index">
+        <input type="text" name="search" placeholder="Търси по име/описание..." style="padding: 5px;" />
+        
+        <select name="status" style="padding: 5px;">
+            <option value="">Всички статуси</option>
+            <option value="Waiting">Waiting</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Finished">Finished</option>
+        </select>
+        
+        <button type="submit" style="padding: 5px 15px; background: #007bff; color: white; border: none; border-radius: 3px;">Филтрирай</button>
+    </form>
+</div>
+
+<table border="1" style="width:100%; border-collapse: collapse; text-align: left;">
+    <tr style="background: #eee;">
+        <th style="padding: 10px;">Име</th>
+        <th style="padding: 10px;">Маршрут</th>
+        <th style="padding: 10px;">Статус</th>
+        <th style="padding: 10px;">Действия</th>
+    </tr>
+
+    @foreach (var trip in Model)
+    {
+        <tr>
+            <td style="padding: 10px;">@trip.Name</td>
+            <td style="padding: 10px;">@trip.Route</td>
+            <td style="padding: 10px;"><strong>@trip.Status</strong></td>
+            <td style="padding: 10px;">
+                @if (User.IsInRole("Administrator") || User.IsInRole("Dispatcher"))
+                {
+                    <a href="/Trips/Edit/@trip.Id" style="color: green; margin-right: 10px;">Редактирай</a>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a href="/Trips/Delete/@trip.Id" style="color: red;" onclick="return confirm('Сигурни ли сте?')">Изтрий</a>
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+@if (User.IsInRole("Administrator") || User.IsInRole("Dispatcher"))
+{
+    <br />
+    <a href="/Trips/Create" style="padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;">+ Създай нов рейс</a>
+}
