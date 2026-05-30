@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Начало";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary mb-3">
+        <i class="bi bi-truck"></i> Konokono Fleet
+    </h1>
+    <p class="lead text-muted">Централизирана платформа за управление на рейсове и логистика</p>
+</div>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5 text-center">
+                    <i class="bi bi-lock-fill text-primary" style="font-size: 3rem;"></i>
+                    <h3 class="card-title mt-3">Добре дошли</h3>
+                    <p class="card-text text-muted mb-4">
+                        Влезте в своя профил, за да управлявате рейсовете и логистиката
+                    </p>
+                    <a href="/Identity/Account/Login" class="btn btn-primary btn-lg me-2">
+                        <i class="bi bi-box-arrow-in-right"></i> Вход
+                    </a>
+                    <a href="/Identity/Account/Register" class="btn btn-outline-primary btn-lg">
+                        <i class="bi bi-person-plus"></i> Регистрация
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <div class="display-6 text-primary mb-3">
+                        <i class="bi bi-list-check"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Всички рейсове</h5>
+                    <p class="card-text text-muted">Преглед на всички активни рейсове и маршрути.</p>
+                    <a href="/Trips" class="btn btn-primary btn-sm">
+                        Преглед <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @if (User.IsInRole("Dispatcher") || User.IsInRole("Administrator"))
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card border-success border-2">
+                    <div class="card-body">
+                        <div class="display-6 text-success mb-3">
+                            <i class="bi bi-plus-circle"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Нов рейс</h5>
+                        <p class="card-text text-muted">Създаване и редакция на нови рейсове.</p>
+                        <a href="/Trips/Create" class="btn btn-success btn-sm">
+                            Създай <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (User.IsInRole("Driver"))
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card border-info border-2">
+                    <div class="card-body">
+                        <div class="display-6 text-info mb-3">
+                            <i class="bi bi-person-badge"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Моите задачи</h5>
+                        <p class="card-text text-muted">Преглед на назначените Ви рейсове.</p>
+                        <a href="/Trips/MyTrips" class="btn btn-info btn-sm text-white">
+                            Преглед <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (User.IsInRole("Administrator"))
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card border-danger border-2">
+                    <div class="card-body">
+                        <div class="display-6 text-danger mb-3">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Администрация</h5>
+                        <p class="card-text text-muted">Управление на потребители и роли.</p>
+                        <a href="/Users" class="btn btn-danger btn-sm">
+                            Управление <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 123, 255, 0.2) !important;
+    }
+</style>
+                </div>
+            
+        </div>
+    
+</div>

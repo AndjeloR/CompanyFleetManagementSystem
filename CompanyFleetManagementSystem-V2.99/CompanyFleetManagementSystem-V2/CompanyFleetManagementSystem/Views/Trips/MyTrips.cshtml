@@ -1,0 +1,54 @@
+@model IEnumerable<CompanyFleetManagementSystem.Models.Trip>
+<h2>Моите Рейсове</h2>
+<div class="table-responsive">
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Име</th>
+                <th>Маршрут</th>
+                <th>Тръгване</th>
+                <th>Пристигане</th>
+                <th>Статус</th>
+                <th class="text-center">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model)
+            {
+                <tr>
+                    <td><strong>@t.Name</strong></td>
+                    <td>@t.Route</td>
+                    <td>@t.DepartureTime.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@t.ExpectedReturnTime.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        @switch(t.Status.ToString())
+                        {
+                            case "Waiting":
+                                <span class="badge bg-warning text-dark">В чакане</span>
+                                break;
+                            case "InProgress":
+                                <span class="badge bg-info">В ход</span>
+                                break;
+                            case "Cancelled":
+                                <span class="badge bg-danger">Отменен</span>
+                                break;
+                            case "Finished":
+                                <span class="badge bg-success">Завършен</span>
+                                break;
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (t.Status == CompanyFleetManagementSystem.Models.TripStatus.Waiting)
+                        {
+                            <a asp-action="Start" asp-route-id="@t.Id" class="btn btn-sm btn-primary">Започни</a>
+                        }
+                        @if (t.Status == CompanyFleetManagementSystem.Models.TripStatus.InProgress)
+                        {
+                            <a asp-action="Finish" asp-route-id="@t.Id" class="btn btn-sm btn-success">Приключи</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

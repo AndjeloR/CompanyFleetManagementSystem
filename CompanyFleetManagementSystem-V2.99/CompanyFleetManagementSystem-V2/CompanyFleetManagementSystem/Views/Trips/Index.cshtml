@@ -1,0 +1,126 @@
+@model IEnumerable<CompanyFleetManagementSystem.Models.Trip>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2 class="fw-bold text-primary">Всички рейсове</h2>
+    </div>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Dispatcher"))
+    {
+        <div class="col-md-4 text-end">
+            <a href="/Trips/Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> + Създай нов рейс
+            </a>
+        </div>
+    }
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" asp-action="Index" class="row g-3">
+            <div class="col-md-6">
+                <label for="search" class="form-label">Търси по име</label>
+                <input type="text" class="form-control" id="search" name="search" placeholder="Търсене..." />
+            </div>
+
+            <div class="col-md-4">
+                <label for="status" class="form-label">Статус</label>
+                <select class="form-select" id="status" name="status">
+                    <option value="">Всички статуси</option>
+                    <option value="Waiting">В чакане</option>
+                    <option value="InProgress">В ход</option>
+                    <option value="Cancelled">Отменен</option>
+                    <option value="Finished">Завършен</option>
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-search"></i> Филтрирай
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Име</th>
+                <th scope="col">Маршрут</th>
+                <th scope="col">Водач</th>
+                <th scope="col">Тръгване</th>
+                <th scope="col">Пристигане</th>
+                <th scope="col">Статус</th>
+                <th scope="col" class="text-center">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                @foreach (var trip in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@trip.Name</strong>
+                        </td>
+                        <td>@trip.Route</td>
+                        <td>
+                            @if (trip.Driver != null)
+                            {
+                                <span>@trip.Driver.FirstName @trip.Driver.LastName</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">-</span>
+                            }
+                        </td>
+                        <td>@trip.DepartureTime.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@trip.ExpectedReturnTime.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            @switch(trip.Status.ToString())
+                            {
+                                case "Waiting":
+                                    <span class="badge bg-warning text-dark">В чакане</span>
+                                    break;
+                                case "InProgress":
+                                    <span class="badge bg-info">В ход</span>
+                                    break;
+                                case "Cancelled":
+                                    <span class="badge bg-danger">Отменен</span>
+                                    break;
+                                case "Finished":
+                                    <span class="badge bg-success">Завършен</span>
+                                    break;
+                            }
+                        </td>
+                        <td class="text-center">
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Dispatcher"))
+                            {
+                                <a href="/Trips/Edit/@trip.Id" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i> Редактирай
+                                </a>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <a href="/Trips/Delete/@trip.Id" class="btn btn-sm btn-outline-danger" 
+                                       onclick="return confirm('Сигурни ли сте че искате да изтриете този рейс?')">
+                                        <i class="bi bi-trash"></i> Изтрий
+                                    </a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-4">
+                        <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                        <p class="mt-2">Няма намерени рейсове</p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

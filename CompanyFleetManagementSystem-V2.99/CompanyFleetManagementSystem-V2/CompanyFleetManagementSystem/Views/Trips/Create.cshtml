@@ -1,0 +1,63 @@
+@model CompanyFleetManagementSystem.Models.Trip
+
+@{
+    ViewData["Title"] = "Create Trip";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1>@ViewData["Title"]</h1>
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter trip name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter trip description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Route" class="form-label"></label>
+                    <input asp-for="Route" class="form-control" placeholder="Enter route" />
+                    <span asp-validation-for="Route" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DepartureTime" class="form-label"></label>
+                    <input asp-for="DepartureTime" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="DepartureTime" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ExpectedReturnTime" class="form-label"></label>
+                    <input asp-for="ExpectedReturnTime" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="ExpectedReturnTime" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DriverEmail" class="form-label"></label>
+                    <input asp-for="DriverEmail" type="email" class="form-control" placeholder="Enter driver email" />
+                    <span asp-validation-for="DriverEmail" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create Trip</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
