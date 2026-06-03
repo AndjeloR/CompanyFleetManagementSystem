@@ -93,5 +93,65 @@ namespace CompanyFleetManagementSystem.Controllers
             await tripService.FinishTrip(id);
             return RedirectToAction("MyTrips");
         }
+
+        [Authorize(Roles = "Administrator, Dispatcher")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var trip = await tripService.GetTripById(id);
+            if (trip == null)
+                return NotFound();
+
+            return View(trip);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator, Dispatcher")]
+        public async Task<IActionResult> Edit(int id, Trip trip)
+        {
+            if (id != trip.Id)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return View(trip);
+
+            // Look up the driver by email and set DriverId
+            if (!string.IsNullOrEmpty(trip.DriverEmail))
+            {
+                var driver = await userManager.FindByEmailAsync(trip.DriverEmail);
+                if (driver == null)
+                {
+                    ModelState.AddModelError("DriverEmail", "Driver with this email not found.");
+                    return View(trip);
+                }
+                trip.DriverId = driver.Id;
+            }
+            else
+            {
+                ModelState.AddModelError("DriverEmail", "Driver email is required.");
+                return View(trip);
+            }
+
+            try
+            {
+                await tripService.UpdateTrip(trip);
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var trip = await tripService.GetTripById(id);
+            if (trip == null)
+                return NotFound();
+
+            await tripService.DeleteTrip(id);
+            return RedirectToAction("Index");
+        }
     }
 }

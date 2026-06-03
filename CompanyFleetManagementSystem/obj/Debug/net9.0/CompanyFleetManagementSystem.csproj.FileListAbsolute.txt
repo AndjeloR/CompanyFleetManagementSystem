@@ -1,0 +1,11 @@
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.csproj.AssemblyReference.cache
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.AssemblyInfoInputs.cache
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.AssemblyInfo.cs
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.csproj.CoreCompileInputs.cache
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.MvcApplicationPartsAssemblyInfo.cs
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.RazorAssemblyInfo.cache
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.RazorAssemblyInfo.cs
+D:\programi\CompanyV2\CompanyFleetManagementSystem\obj\Debug\net9.0\CompanyFleetManagementSystem.sourcelink.json

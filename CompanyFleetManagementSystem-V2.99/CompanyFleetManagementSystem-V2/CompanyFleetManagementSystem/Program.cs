@@ -67,9 +67,12 @@ async Task InitializeDatabaseAsync(IServiceProvider services)
     {
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
+        /////////////////////////////////////////////////////
 
-        // Delete all existing data and recreate database
-        await dbContext.Database.EnsureDeletedAsync();
+        //Delete all existing data and recreate database
+        //await dbContext.Database.EnsureDeletedAsync();
+
+        /////////////////////////////////////////////////////
 
 
         await dbContext.Database.EnsureCreatedAsync();
